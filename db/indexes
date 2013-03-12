@@ -1,0 +1,5 @@
+
+
+
+db.Company.ensureIndex( { "name": 1 }, { unique: true } )
+

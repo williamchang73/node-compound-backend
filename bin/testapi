@@ -1,0 +1,22 @@
+
+
+
+//company ===
+
+
+//list
+curl http://127.0.0.1:3001/companies.json
+curl http://127.0.0.1:3001/companies/513ef829717d775329000001.json
+
+
+//create
+curl -F 'Company[name]=appz' -F 'Company[data]=lala'  http://127.0.0.1:3001/companies.json
+
+//update
+curl -F '_method=PUT' -F 'Company[data]=222'  http://127.0.0.1:3001/companies/513ef829717d775329000001.json
+
+
+
+
+
+
