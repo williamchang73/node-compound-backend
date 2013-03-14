@@ -24,6 +24,7 @@
 var Company = describe('Company', function () {
     property('name', String);
     property('data', String);
+    property('userid', String);
     property('create_time', String, {default:Date});
     property('update_time', String, {default:Date});
     set('restPath', pathTo.companies);
