@@ -11,8 +11,12 @@
   , "coffee-script": ">= 1.1.1"
   , "stylus": "latest"
   , "seedjs": "latest"
-  , "co-assets-compiler": "*"
+  , "co-assets-compiler": "latest"
   , "jugglingdb-mongodb": "*"
+  , "passport": "*"
+  , "compound-passport" : "latest"
+  , "jwt-simple" : "latest"
+  , "memcache" : "latest"
   },
   "devDependencies":
   { "nodeunit": "*"

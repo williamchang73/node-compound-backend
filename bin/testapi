@@ -18,5 +18,11 @@ curl -F '_method=PUT' -F 'Company[data]=222'  http://127.0.0.1:3001/companies/51
 
 
 
+//user ===
+
+//login 
+curl -F 'email=williamchang73@gmail.com' -F 'password=Test12' http://127.0.0.1:3001/login/aboutus  
 
 
+//create a user
+curl -F 'User[name]=williamchang' -F 'User[email]=william_chang@trend.com.tw'  -F 'User[password]=Test12' http://127.0.0.1:3001/users.json

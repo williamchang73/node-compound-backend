@@ -29,3 +29,12 @@ var Company = describe('Company', function () {
     set('restPath', pathTo.companies);
 });
 
+var User = describe('User', function () {
+    property('name', String);
+    property('email', String);
+    property('password', String);
+    property('create_time', String, {default:Date});
+    property('update_time', String, {default:Date});
+    set('restPath', pathTo.users);
+});
+

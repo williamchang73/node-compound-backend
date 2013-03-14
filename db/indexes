@@ -3,3 +3,6 @@
 
 db.Company.ensureIndex( { "name": 1 }, { unique: true } )
 
+
+db.User.ensureIndex( { "email": 1 }, { unique: true } )
+
