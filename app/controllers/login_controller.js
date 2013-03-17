@@ -32,7 +32,8 @@ action('aboutus', function(req, res) {
 			client.connect();
 			client.set(token, JSON.stringify(user) , null, 100*60*10); //10 mins
 			send({
-				'token' : token
+				'token' : token,
+				'user' : JSON.stringify(user)
 			}, 200);
 		}
 	});

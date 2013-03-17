@@ -26,6 +26,31 @@ AboutUsAPI.createCompany = function(data, callback) {
 
 
 
+AboutUsAPI.createUser = function(data, callback) {
+	console.log('AboutUsAPI.createUser');
+	data = data || { };
+
+	var option = {
+		'data' : data,
+		'api' : '/users.json',
+		'method' : 'POST' 
+	};
+	AboutUsAPI.call(option, callback);
+}; 
+
+AboutUsAPI.loginUser = function(data, callback) {
+	data = data || { };
+
+	var option = {
+		'data' : data,
+		'api' : '/login/aboutus',
+		'method' : 'POST' 
+	};
+	AboutUsAPI.call(option, callback);
+}; 
+
+
+
 AboutUsAPI.call = function(option, callback) {
 	var data = option.data || { };
 	var api  = option.api;

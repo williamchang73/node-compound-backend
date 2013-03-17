@@ -3,7 +3,7 @@ before('protect from forgery', function() {
 });
 
 publish('checkLogin', function() {
-
+	//use token to get user
 	var token = req.query.token;
 	console.log('token : ' + token);
 	var memcache = require('memcache');

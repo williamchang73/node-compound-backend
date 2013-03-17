@@ -2,7 +2,7 @@ load('application');
 
 
 before(use('checkLogin'), {
-	only : ['edit', 'update', 'new', 'create']
+	only : ['edit', 'update']
 });
 
 

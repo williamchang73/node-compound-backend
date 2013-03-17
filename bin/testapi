@@ -9,20 +9,20 @@ curl http://127.0.0.1:3001/companies.json
 curl http://127.0.0.1:3001/companies/513ef829717d775329000001.json
 
 
-//create
+//create a company
 curl -F 'Company[name]=appz' -F 'Company[data]=lala'  http://127.0.0.1:3001/companies.json
 
-//update
+//update a company
 curl -F '_method=PUT' -F 'Company[data]=222'  http://127.0.0.1:3001/companies/513ef829717d775329000001.json
 
 
-
-
 //user ===
+
+//create a user
+curl -F 'User[name]=William Chang' -F 'User[email]=williamchang73@gmail.com'  -F 'User[password]=Test12' http://127.0.0.1:3001/users.json
+
 
 //login 
 curl -F 'email=williamchang73@gmail.com' -F 'password=Test12' http://127.0.0.1:3001/login/aboutus  
 
 
-//create a user
-curl -F 'User[name]=williamchang' -F 'User[email]=william_chang@trend.com.tw'  -F 'User[password]=Test12' http://127.0.0.1:3001/users.json
