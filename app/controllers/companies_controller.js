@@ -2,14 +2,15 @@ load('application');
 
 
 before(use('checkLogin'), {
-	only : ['edit', 'update']
+	only : ['edit', 'update', 'create']
 });
 
 
 before(loadCompany, {
     only: ['show', 'edit', 'update', 'destroy']
     });
-
+    
+    
 action('new', function () {
     this.title = 'New company';
     this.company = new Company;
@@ -17,6 +18,9 @@ action('new', function () {
 });
 
 action(function create() {
+	//set userid
+	req.body.Company.userid = req.userid;
+
     Company.create(req.body.Company, function (err, company) {
         respondTo(function (format) {
             format.json(function () {

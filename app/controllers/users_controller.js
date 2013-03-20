@@ -10,7 +10,6 @@ before(loadUser, {
 });
 
 
-
 action('new', function() {
 	this.title = 'New user';
 	this.user = new User;
