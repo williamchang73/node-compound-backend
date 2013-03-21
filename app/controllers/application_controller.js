@@ -2,22 +2,21 @@ before('protect from forgery', function() {
 	protectFromForgery('e9d79d90fc416fea7bf9a5e46033df68b5f8bfb1');
 });
 
-
-
 publish('response', function(data, code) {
 	returnJson(data, code);
 });
 
-
-function returnJson(data, status) { 
-	if(status == 200){
+function returnJson(data, status) {
+	if (status == 200) {
 		status_msg = '';
-	}else if(status == 101){
+	} else if (status == 101) {
 		status_msg = 'please login first';
-	}else if(status == 102){
+	} else if (status == 102) {
 		status_msg = 'user invalid';
-	}else if(status == 103){
+	} else if (status == 103) {
 		status_msg = 'password incorrect';
+	} else if (status == 104) {
+		status_msg = 'memcache invalid';
 	}
 	var ret = {
 		data : data,
@@ -28,21 +27,23 @@ function returnJson(data, status) {
 }
 
 publish('checkLogin', function() {
-	
+
 	//use token to get user
 	var token = req.query.token;
-	console.log('token : ' + token);
 	var memcache = require('memcache');
 	var client = new memcache.Client('11211', 'localhost');
-	client.connect();
-	client.get(token, function(error, user) {
-		user = JSON.parse(user);
-		if(user){
-			req.userid = user.id;
-			next();
-		}else{
-			returnJson('', 101);					
-		}
-	});
+	if (client) {
+		client.connect();
+		client.get(token, function(error, user) {
+			user = JSON.parse(user);
+			if (user) {
+				req.userid = user.id;
+				next();
+			} else {
+				returnJson('', 101);
+			}
+		});
+	}else{
+		returnJson('', 104);
+	}
 });
-

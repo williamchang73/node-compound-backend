@@ -23,7 +23,8 @@ action('aboutus', function(req, res) {
 			response('', 102);
 		} else if (password != user.password) {
 			response('', 103);
-		} else {
+		} else { 
+			//login successfully
 			var token = jwt.encode(email, secret);
 			var memcache = require('memcache');
 			var client = new memcache.Client('11211', 'localhost');
