@@ -10,10 +10,14 @@ curl http://127.0.0.1:3001/companies/513ef829717d775329000001.json
 
 
 //create a company
-curl -F 'Company[name]=appz' -F 'Company[data]=lala'  http://127.0.0.1:3001/companies.json
+curl -F 'Company[name]=appz' -F 'Company[data]=lala'  http://127.0.0.1:3001/companies.json?token=
 
 //update a company
-curl -F '_method=PUT' -F 'Company[data]=222'  http://127.0.0.1:3001/companies/513ef829717d775329000001.json
+curl -F '_method=PUT' -F 'Company[data]=222'  http://127.0.0.1:3001/companies/513ef829717d775329000001.json?token=
+
+
+//set to submit
+
 
 
 //user ===
@@ -23,6 +27,8 @@ curl -F 'User[name]=William Chang' -F 'User[email]=williamchang73@gmail.com'  -F
 
 
 //login 
-curl -F 'email=williamchang73@gmail.com' -F 'password=Test12' http://127.0.0.1:3001/login/aboutus  
+curl -F 'email=williamchang73@gmail.com' -F 'password=Test12' http://127.0.0.1:3001/login/aboutus
+
+
 
 

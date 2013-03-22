@@ -25,7 +25,7 @@ var Company = describe('Company', function () {
     property('name', String);
     property('data', String);
     property('userid', String);
-    property('publish', Boolean , {default:false});
+    property('status', Number , {default:0}); //0 : draft 1 : submit 2 : publish
     property('create_time', String, {default:Date});
     property('update_time', String, {default:Date});
     set('restPath', pathTo.companies);

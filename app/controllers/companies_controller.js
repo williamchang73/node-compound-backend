@@ -20,7 +20,8 @@ action('new', function () {
 action(function create() {
 	//set userid
 	req.body.Company.userid = req.userid;
-
+	req.body.Company.name = req.body.Company.name.replace(/[^\w]/gi, '');
+	 
     Company.create(req.body.Company, function (err, company) {
         respondTo(function (format) {
             format.json(function () {
@@ -143,3 +144,12 @@ function loadCompany() {
         }
     }.bind(this));
 }
+
+
+
+
+// for customize api =============
+
+action(function publish() {
+    console.log('publish the company');
+});
