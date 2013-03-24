@@ -27,7 +27,7 @@ function returnJson(data, status) {
 }
 
 publish('checkLogin', function() {
-
+	console.log('check Login...');
 	//use token to get user
 	var token = req.query.token;
 	var memcache = require('memcache');
@@ -38,6 +38,7 @@ publish('checkLogin', function() {
 			user = JSON.parse(user);
 			if (user) {
 				req.userid = user.id;
+				console.log('user id : ' + req.userid);
 				next();
 			} else {
 				returnJson('', 101);

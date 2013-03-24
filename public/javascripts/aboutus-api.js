@@ -43,8 +43,21 @@ AboutUsAPI.loginUser = function(data, callback) {
 
 	var option = {
 		'data' : data,
-		'api' : '/login/aboutus',
+		'api' : '/users/login',
 		'method' : 'POST' 
+	};
+	AboutUsAPI.call(option, callback);
+}; 
+
+
+
+AboutUsAPI.getCompaniesByUser = function(data, callback) {
+	data = data || { };
+
+	var option = {
+		'data' : data,
+		'api' : '/companies/by_user',
+		'method' : 'GET' 
 	};
 	AboutUsAPI.call(option, callback);
 }; 
