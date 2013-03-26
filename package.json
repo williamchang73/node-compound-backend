@@ -17,6 +17,8 @@
   , "compound-passport" : "latest"
   , "jwt-simple" : "latest"
   , "memcache" : "latest"
+  , "configie" : "latest"
+ 
   },
   "devDependencies":
   { "nodeunit": "*"

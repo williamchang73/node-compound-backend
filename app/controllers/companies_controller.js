@@ -17,8 +17,12 @@ action('new', function() {
 action(function create() {
 	//set userid
 	req.body.Company.userid = req.userid;
-	req.body.Company.name = req.body.Company.name.replace(/[^\w]/gi, '');
 
+	//change the company name to tempname
+	req.body.Company.name = req.body.Company.name.replace(/[^\w]/gi, '') + '_' + Math.random().toString(36).substring(12);
+	req.body.Company.data = require('configie').get('defaultdata').company;
+	
+	
 	Company.create(req.body.Company, function(err, company) {
 		respondTo(function(format) {
 			format.json(function() {

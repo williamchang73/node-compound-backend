@@ -1,23 +1,23 @@
 var AboutUsAPI = {};
 var apiurl = 'http://127.0.0.1:3001';
 
-AboutUsAPI.getCompanyList = function(data, callback) {
+AboutUsAPI.getCompanyList = function(data, token, callback) {
 	data = data || { };
 	
 	var option = {
 		'data' : data,
-		'api' : '/companies.json',
+		'api' : '/companies.json?token='+token,
 		'method' : 'GET' 
 	};
 	AboutUsAPI.call(option, callback);
 }; 
 
-AboutUsAPI.createCompany = function(data, callback) {
+AboutUsAPI.createCompany = function(data, token, callback) {
 	data = data || { };
 
 	var option = {
 		'data' : data,
-		'api' : '/companies.json',
+		'api' : '/companies.json?token='+token,
 		'method' : 'POST' 
 	};
 	AboutUsAPI.call(option, callback);
