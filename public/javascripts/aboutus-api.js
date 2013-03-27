@@ -64,14 +64,49 @@ AboutUsAPI.getCompaniesByUser = function(data, token, callback) {
 
 
 
+
+AboutUsAPI.getCompanyInfo = function(data, callback) {
+	data = data || {};
+
+	var option = {
+		'data' : data,
+		'api' : '/companies/by_name',
+		'method' : 'POST',
+		'async' : 'false' 
+	};
+	AboutUsAPI.call(option, callback);
+}; 
+
+
+
+
+AboutUsAPI.updateCompany = function(data, token, callback) {
+	data = data || {};
+	data._method = 'PUT';
+	var option = {
+		'data' : data,
+		'api' : '/companies/'+data.key+'.json?token=' + token,
+		'method' : 'POST' 
+	};
+	AboutUsAPI.call(option, callback);
+}; 
+
+
+
+
 AboutUsAPI.call = function(option, callback) {
 	var data = option.data || { };
 	var api  = option.api;
+	var async = option.async || true;
+	if(async=='false'){
+		async = false;
+	}
 	var method = option.method || "GET";
 	$.ajax({
 		type : method,
 		url : apiurl + api,
 		data : data,
+	    async : async,
 		success : function(response) {
 			
 			if(response.code){

@@ -17,7 +17,15 @@ function returnJson(data, status) {
 		status_msg = 'password incorrect';
 	} else if (status == 104) {
 		status_msg = 'memcache invalid';
+	} else if (status == 106) {
+		status_msg = 'user already exist';
+	} else if (status == 107) {
+		status_msg = 'can not find company';
+	} else if (status == 108) {
+		status_msg = 'you have no permission';
 	}
+
+
 	var ret = {
 		data : data,
 		status : status,
@@ -48,3 +56,4 @@ publish('checkLogin', function() {
 		returnJson('', 104);
 	}
 });
+

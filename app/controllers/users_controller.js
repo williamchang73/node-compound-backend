@@ -4,11 +4,9 @@ before(use('checkLogin'), {
 	only : ['edit', 'update']
 });
 
-
 before(loadUser, {
 	only : ['show', 'edit', 'update', 'destroy']
 });
-
 
 action('new', function() {
 	this.title = 'New user';
@@ -16,36 +14,44 @@ action('new', function() {
 	render();
 });
 
-
 action(function create() {
-	User.create(req.body.User, function(err, user) {
-		respondTo(function(format) {
-			format.json(function() {
-				if (err) {
-					send({
-						code : 500,
-						error : user && user.errors || err
+
+	//check user exist
+	User.getUserByEmail(req.body.User.email, function(err, user) {
+
+		if (user == null) {
+			User.create(req.body.User, function(err, user) {
+				respondTo(function(format) {
+					format.json(function() {
+						if (err) {
+							send({
+								code : 500,
+								error : user && user.errors || err
+							});
+						} else {
+							send({
+								code : 200,
+								data : user.toObject()
+							});
+						}
 					});
-				} else {
-					send({
-						code : 200,
-						data : user.toObject()
+					format.html(function() {
+						if (err) {
+							flash('error', 'User can not be created');
+							render('new', {
+								user : user,
+								title : 'New user'
+							});
+						} else {
+							flash('info', 'User created');
+							redirect(path_to.users);
+						}
 					});
-				}
+				});
 			});
-			format.html(function() {
-				if (err) {
-					flash('error', 'User can not be created');
-					render('new', {
-						user : user,
-						title : 'New user'
-					});
-				} else {
-					flash('info', 'User created');
-					redirect(path_to.users);
-				}
-			});
-		});
+		}else{
+			response({}, 106);
+		}
 	});
 });
 
@@ -168,8 +174,6 @@ function loadUser() {
 	}.bind(this));
 }
 
-
-
 //for customize apis
 var response = use('response');
 var jwt = require('jwt-simple');
@@ -194,7 +198,7 @@ action('login', function() {
 			response('', 102);
 		} else if (password != user.password) {
 			response('', 103);
-		} else { 
+		} else {
 			//login successfully
 			var token = jwt.encode(email, secret);
 			var memcache = require('memcache');
@@ -209,8 +213,4 @@ action('login', function() {
 	});
 
 });
-
-
-
-
 

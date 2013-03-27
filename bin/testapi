@@ -16,6 +16,9 @@ curl -F 'Company[name]=appz' -F 'Company[data]=lala'  http://127.0.0.1:3001/comp
 curl -F '_method=PUT' -F 'Company[data]=222'  http://127.0.0.1:3001/companies/514ed079f4c4c2d722000002.json?token=
 
 
+//find a compnay with name
+curl -F 'name=usfca_grdx6r' http://127.0.0.1:3001/companies/by_name
+
 //search user's company
 curl http://127.0.0.1:3001/companies/user?token= 
 

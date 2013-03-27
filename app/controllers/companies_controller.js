@@ -98,6 +98,12 @@ action(function edit() {
 });
 
 action(function update() {
+	
+	//check the company's user id is the same with token
+	if(req.userid != this.company.userid){
+		response({}, '108');
+	}
+
 	var company = this.company;
 	this.title = 'Edit company details';
 	this.company.updateAttributes(body.Company, function(err) {
@@ -129,6 +135,12 @@ action(function update() {
 });
 
 action(function destroy() {
+	
+	//check the company's user id is the same with token
+	if(req.userid != this.company.userid){
+		response({}, '108');
+	}
+	
 	this.company.destroy(function(error) {
 		respondTo(function(format) {
 			format.json(function() {
@@ -175,27 +187,50 @@ function loadCompany() {
 
 // for customize api =============
 var response = use('response');
+
+
+function filterResult(company) {
+	company.id = '';
+	company.userid = '';
+	return company;
+}
+
+
 /**
  * find which company urls belong to this person
  */
 action('by_user', function() {
-	console.log('search by user : ' + req.userid);
-	//get user first, check password
-	var wheres = {
-		where : {
-			'userid' : req.userid
-		}
-	};
 
-	Company.all(wheres ,function(err, companies) {
+	Company.getCompanyByUser(req.userid, function(err, company) {
 		ret = [];
-		companies.forEach(function(company) {
-    		var name = company.name;
-    		var status = company.status;
-    		ret.push({'name':name, 'status':status});
-		});
+		if(company!=null){
+			ret.push({'name':company.name, 'status':company.status , 'id':company.id});
+		}
 		response(ret, 200);
 	});
+});
 
+
+
+
+/**
+ * find which company by name
+ */
+action('by_name', function() {
+	Company.getCompanyByName(req.body.name, function(err, company) {
+		if(company!=null){
+			if(company.status == 0){ //need to check login
+				if(req.body.key == company.id){
+					response(filterResult(company), 200);
+				}else{
+					response({}, 108);	
+				}
+			}else{
+				response(filterResult(company), 200);		
+			}
+		}else{
+			response({}, 107);	
+		}
+	});
 });
 

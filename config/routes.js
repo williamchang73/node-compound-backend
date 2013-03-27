@@ -2,6 +2,8 @@ exports.routes = function(map) {
 	
 	
 	map.get('companies/by_user', 'companies#by_user');
+	map.get('companies/by_name', 'companies#by_name');
+	
 	map.get('users/login', 'users#login');
 	
 	
