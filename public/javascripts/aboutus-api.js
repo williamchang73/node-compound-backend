@@ -51,12 +51,12 @@ AboutUsAPI.loginUser = function(data, callback) {
 
 
 
-AboutUsAPI.getCompaniesByUser = function(data, callback) {
+AboutUsAPI.getCompaniesByUser = function(data, token, callback) {
 	data = data || { };
 
 	var option = {
 		'data' : data,
-		'api' : '/companies/by_user',
+		'api' : '/companies/by_user?token='+token,
 		'method' : 'GET' 
 	};
 	AboutUsAPI.call(option, callback);
@@ -73,6 +73,12 @@ AboutUsAPI.call = function(option, callback) {
 		url : apiurl + api,
 		data : data,
 		success : function(response) {
+			
+			if(response.code){
+				response.status = response.code;
+				response.status_msg = '';
+				delete response.code;	
+			}
 			callback(response);
 		},
 		error : function(rs, e) {
