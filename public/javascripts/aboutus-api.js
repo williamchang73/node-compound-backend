@@ -108,7 +108,9 @@ AboutUsAPI.call = function(option, callback) {
 		data : data,
 	    async : async,
 		success : function(response) {
-			
+			if(typeof response == 'string'){ //for some browser
+				response = $.parseJSON(response)
+			}
 			if(response.code){
 				response.status = response.code;
 				response.status_msg = '';
