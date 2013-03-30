@@ -23,6 +23,8 @@ function returnJson(data, status) {
 		status_msg = 'can not find company';
 	} else if (status == 108) {
 		status_msg = 'you have no permission';
+	} else if (status == 109) {
+		status_msg = 'saving failed';
 	}
 
 	var ret = {
@@ -38,7 +40,7 @@ publish('checkLogin', function() {
 	//if my ip
 
 	var myip = req.header('x-forwarded-for') || req.connection.remoteAddress;
-	if (myip == '127.0.0.1') {
+	if (myip == '127.0.0.1' && req.query.token == undefined) {
 		next();
 	} else {
 		console.log('check Login...');

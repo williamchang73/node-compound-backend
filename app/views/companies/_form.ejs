@@ -8,7 +8,7 @@
 <div class="control-group">
    <%- form.label("data", false, {class: "control-label"}) %>
    <div class="controls">
-       <%- form.input("data") %>
+       <textarea rows="4" cols="50" name="Company[data]" id="Company_data" ><%- JSON.stringify(company.data) %></textarea>
    </div>
 </div>
 <div class="control-group">

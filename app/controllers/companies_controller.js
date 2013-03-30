@@ -104,6 +104,21 @@ action(function update() {
 	if ((req.userid != this.company.userid) && myip != '127.0.0.1') {
 		response({}, '108');
 	} else {
+		//convert string to object
+		var obj = req.body.Company['data'];
+		try{
+			if(typeof obj == "string"){
+				obj = JSON.parse(obj);	
+			}
+		}catch(e){
+        	console.error(e);
+    	}
+		if(typeof obj != "object"){
+			response({}, '109');
+			return;
+		}
+		req.body.Company['data'] = obj;
+		
 		var company = this.company;
 		this.title = 'Edit company details';
 		this.company.updateAttributes(body.Company, function(err) {
@@ -201,7 +216,7 @@ function filterResult(company) {
  * find which company urls belong to this person
  */
 action('by_user', function() {
-
+	console.log(req.userid);
 	Company.getCompanyByUser(req.userid, function(err, company) {
 		ret = [];
 		if (company != null) {
