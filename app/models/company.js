@@ -24,5 +24,25 @@ module.exports = function(compound, Company) {
 		};
 		this.findOne(wheres, callback);
 	}
+	
+	
+	Company.getCompanies = function getCompanies(page, callback) {
+		
+		page = page ? page : 0;
+		count = 20;
+
+		//get user first, check password
+		//{where: {userId: user.id}, order: 'id', limit: 10, skip: 20}
+		var wheres = {
+			where : {
+				'status' : "2"
+			},
+			order: 'update_time',
+			limit : count,
+			skip : page * count
+		};
+		this.all(wheres, callback);
+	}
+
 
 };

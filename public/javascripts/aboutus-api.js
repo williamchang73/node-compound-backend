@@ -93,6 +93,17 @@ AboutUsAPI.updateCompany = function(data, token, callback) {
 
 
 
+AboutUsAPI.getCompanies = function(data, callback) {
+	data = data || {};
+	var option = {
+		'data' : data,
+		'api' : '/companies/all',
+		'method' : 'GET'
+	};
+	AboutUsAPI.call(option, callback);
+}; 
+
+
 
 AboutUsAPI.call = function(option, callback) {
 	var data = option.data || { };

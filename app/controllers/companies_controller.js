@@ -251,3 +251,23 @@ action('by_name', function() {
 	});
 });
 
+
+
+
+/**
+ * find all companies story by update time
+ */
+action('all', function() {
+	Company.getCompanies(req.query.page, function(err, companies) {
+		var ret = [];
+		companies.forEach(function(company) {
+			ret.push({
+				"urlname" : company.name,
+				"name" : company.data.company_info.name,
+				"coverpic" : company.data.company_pic[0].pic
+			});
+		});
+		response(ret, 200);
+	});
+});
+
