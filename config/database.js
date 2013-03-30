@@ -9,6 +9,6 @@ module.exports = {
     },
     production: {
         driver:   'mongodb',
-        url:      'mongodb://localhost/aboutus-production'
+        url:      'mongodb://localhost/aboutus'
     }
 };

@@ -20,9 +20,12 @@ module.exports = function(compound) {
 		app.set('cssEngine', 'stylus');
 		app.use(express.bodyParser());
 		app.use(express.cookieParser('secret'));
+		
+		/*
 		app.use(express.session({
 			secret : 'secret'
 		}));
+		*/
 		app.use(express.methodOverride());
 		app.use(allowCrossDomain);
 		app.use(app.router);
