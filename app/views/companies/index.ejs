@@ -20,6 +20,8 @@
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Name</th>
+                    <th>Status</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -27,6 +29,8 @@
                 <% companies.forEach(function (company) { %>
                 <tr>
                     <td><strong><%- link_to('company #' + company.id, pathTo.company(company)) %></strong></td>
+                    <td><strong><%- link_to(company.name, pathTo.company(company)) %></strong></td>
+                    <td><strong><%- link_to(company.status, pathTo.company(company)) %></strong></td>
                     <td>
                         <%- link_to('<i class="icon-edit"></i> Edit', pathTo.edit_company(company), {class: 'btn btn-mini'}) %>
                         <%- link_to('<i class="icon-remove icon-white"></i> Delete', pathTo.company(company), {class: 'btn btn-mini btn-danger', method: 'delete', remote: true, jsonp: '(function (u) {location.href = u;})'}) %>

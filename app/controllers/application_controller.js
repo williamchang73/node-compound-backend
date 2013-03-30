@@ -25,7 +25,6 @@ function returnJson(data, status) {
 		status_msg = 'you have no permission';
 	}
 
-
 	var ret = {
 		data : data,
 		status : status,
@@ -35,25 +34,34 @@ function returnJson(data, status) {
 }
 
 publish('checkLogin', function() {
-	console.log('check Login...');
-	//use token to get user
-	var token = req.query.token;
-	var memcache = require('memcache');
-	var client = new memcache.Client('11211', 'localhost');
-	if (client) {
-		client.connect();
-		client.get(token, function(error, user) {
-			user = JSON.parse(user);
-			if (user) {
-				req.userid = user.id;
-				console.log('user id : ' + req.userid);
-				next();
-			} else {
-				returnJson('', 101);
-			}
-		});
-	}else{
-		returnJson('', 104);
+
+	//if my ip
+
+	var myip = req.header('x-forwarded-for') || req.connection.remoteAddress;
+	if (myip == '127.0.0.1') {
+		next();
+	} else {
+		console.log('check Login...');
+		//use token to get user
+		var token = req.query.token;
+		var memcache = require('memcache');
+		var client = new memcache.Client('11211', 'localhost');
+		if (client) {
+			client.connect();
+			client.get(token, function(error, user) {
+				user = JSON.parse(user);
+				if (user) {
+					req.userid = user.id;
+					console.log('user id : ' + req.userid);
+					next();
+				} else {
+					returnJson('', 101);
+				}
+			});
+		} else {
+			returnJson('', 104);
+		}
+
 	}
 });
 

@@ -21,8 +21,7 @@ action(function create() {
 	//change the company name to tempname
 	req.body.Company.name = req.body.Company.name.replace(/[^\w]/gi, '') + '_' + Math.random().toString(36).substring(12);
 	req.body.Company.data = require('configie').get('defaultdata').company;
-	
-	
+
 	Company.create(req.body.Company, function(err, company) {
 		respondTo(function(format) {
 			format.json(function() {
@@ -87,6 +86,7 @@ action(function show() {
 });
 
 action(function edit() {
+
 	this.title = 'Company edit';
 	switch(params.format) {
 		case "json":
@@ -98,49 +98,52 @@ action(function edit() {
 });
 
 action(function update() {
-	
-	//check the company's user id is the same with token
-	if(req.userid != this.company.userid){
-		response({}, '108');
-	}
 
-	var company = this.company;
-	this.title = 'Edit company details';
-	this.company.updateAttributes(body.Company, function(err) {
-		respondTo(function(format) {
-			format.json(function() {
-				if (err) {
-					send({
-						code : 500,
-						error : company && company.errors || err
-					});
-				} else {
-					send({
-						code : 200,
-						data : company
-					});
-				}
-			});
-			format.html(function() {
-				if (!err) {
-					flash('info', 'Company updated');
-					redirect(path_to.company(company));
-				} else {
-					flash('error', 'Company can not be updated');
-					render('edit');
-				}
+	//check the company's user id is the same with token
+	var myip = req.header('x-forwarded-for') || req.connection.remoteAddress;
+	if ((req.userid != this.company.userid) && myip != '127.0.0.1') {
+		response({}, '108');
+	} else {
+		var company = this.company;
+		this.title = 'Edit company details';
+		this.company.updateAttributes(body.Company, function(err) {
+			respondTo(function(format) {
+				format.json(function() {
+					if (err) {
+						send({
+							code : 500,
+							error : company && company.errors || err
+						});
+					} else {
+						send({
+							code : 200,
+							data : company
+						});
+					}
+				});
+				format.html(function() {
+					if (!err) {
+						flash('info', 'Company updated');
+						redirect(path_to.company(company));
+					} else {
+						flash('error', 'Company can not be updated');
+						render('edit');
+					}
+				});
 			});
 		});
-	});
+
+	}
+
 });
 
 action(function destroy() {
-	
+
 	//check the company's user id is the same with token
-	if(req.userid != this.company.userid){
+	if (req.userid != this.company.userid) {
 		response({}, '108');
 	}
-	
+
 	this.company.destroy(function(error) {
 		respondTo(function(format) {
 			format.json(function() {
@@ -188,13 +191,11 @@ function loadCompany() {
 // for customize api =============
 var response = use('response');
 
-
 function filterResult(company) {
 	company.id = '';
 	company.userid = '';
 	return company;
 }
-
 
 /**
  * find which company urls belong to this person
@@ -203,33 +204,34 @@ action('by_user', function() {
 
 	Company.getCompanyByUser(req.userid, function(err, company) {
 		ret = [];
-		if(company!=null){
-			ret.push({'name':company.name, 'status':company.status , 'id':company.id});
+		if (company != null) {
+			ret.push({
+				'name' : company.name,
+				'status' : company.status,
+				'id' : company.id
+			});
 		}
 		response(ret, 200);
 	});
 });
-
-
-
 
 /**
  * find which company by name
  */
 action('by_name', function() {
 	Company.getCompanyByName(req.body.name, function(err, company) {
-		if(company!=null){
-			if(company.status == 0){ //need to check login
-				if(req.body.key == company.id){
+		if (company != null) {
+			if (company.status == 0) {//need to check login
+				if (req.body.key == company.id) {
 					response(filterResult(company), 200);
-				}else{
-					response({}, 108);	
+				} else {
+					response({}, 108);
 				}
-			}else{
-				response(filterResult(company), 200);		
+			} else {
+				response(filterResult(company), 200);
 			}
-		}else{
-			response({}, 107);	
+		} else {
+			response({}, 107);
 		}
 	});
 });
