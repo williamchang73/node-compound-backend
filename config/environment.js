@@ -21,11 +21,9 @@ module.exports = function(compound) {
 		app.use(express.bodyParser());
 		app.use(express.cookieParser('secret'));
 		
-		/*
 		app.use(express.session({
-			secret : 'secret'
+			secret : 'aboutusapi-catperson'
 		}));
-		*/
 		app.use(express.methodOverride());
 		app.use(allowCrossDomain);
 		app.use(app.router);
