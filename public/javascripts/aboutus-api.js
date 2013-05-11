@@ -119,6 +119,7 @@ AboutUsAPI.call = function(option, callback) {
 		data : data,
 	    async : async,
 		success : function(response) {
+			console.log("server response :", response);
 			if(typeof response == 'string'){ //for some browser
 				response = $.parseJSON(response)
 			}
