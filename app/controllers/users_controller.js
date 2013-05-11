@@ -200,11 +200,13 @@ action('login', function() {
 			response('', 103);
 		} else {
 			//login successfully
+			console.log('login successfully then connect to memcache...');
 			var token = jwt.encode(email, secret);
 			var memcache = require('memcache');
 			var client = new memcache.Client('11211', 'localhost');
 			client.connect();
 			client.set(token, JSON.stringify(user), null, 100 * 60 * 10);
+			console.log('login successfully token has been saved into memcache !');
 			response({
 				'token' : token,
 				'user' : user
