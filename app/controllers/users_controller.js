@@ -197,6 +197,7 @@ action('login', function() {
 			console.log('permission denied : ' + err + ' : ' + email);
 			response('', 102);
 		} else if (password != user.password) {
+			console.log('password is incorrect :', password);
 			response('', 103);
 		} else {
 			//login successfully

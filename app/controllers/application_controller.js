@@ -2,11 +2,8 @@ before('protect from forgery', function() {
 	protectFromForgery('e9d79d90fc416fea7bf9a5e46033df68b5f8bfb1');
 });
 
-publish('response', function(data, code) {
-	returnJson(data, code);
-});
-
 function returnJson(data, status) {
+	var status_msg = '';
 	if (status == 200) {
 		status_msg = '';
 	} else if (status == 101) {
@@ -26,15 +23,21 @@ function returnJson(data, status) {
 	} else if (status == 109) {
 		status_msg = 'saving failed';
 	}
-
 	var ret = {
-		data : data,
-		status : status,
-		status_msg : status_msg
+		"data" : data,
+		"status" : status,
+		"status_msg" : status_msg
 	};
+	console.log("api server result : ", ret);
 	send(ret);
 }
 
+
+publish('response', function(data, code) {
+	returnJson(data, code);
+});
+
+//@TODO : need to block the user from api server backend
 publish('checkLogin', function() {
 
 	//if my ip
