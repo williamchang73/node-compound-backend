@@ -1,7 +1,7 @@
 {
 	"company": {
 		"company_info": {
-			"name": "公司名稱",
+			"name": "公司名稱(請填寫營利事業登記名稱)",
 			"slogan": "公司說明",
 			"logopic": "https://www.filepicker.io/api/file/VOuUNU9BQ3qgR4dn7G2N",
 			"theme": "black"
@@ -184,6 +184,7 @@
 			"title": "聯絡人職稱",
 			"pic": "http://placehold.it/62x62",
 			"email": "客服信箱",
+			"sn": "公司統一編號",
 			"address": "公司住址",
 			"phone": "公司電話",
 			"url": "公司相關連結 ex. http://"
